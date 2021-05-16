@@ -2,7 +2,7 @@ import argparse
 from typing import Optional
 
 
-class VMToHackTranslator:
+class VMTranslator:
     def __init__(self, filename: str):
         self.__label_id = 0
         self.__segment_map = {
@@ -199,7 +199,7 @@ if __name__ == '__main__':
     assert filepath.endswith(".vm"), f"{filepath} doesn't end with .vm"
 
     output: str = filepath.rstrip(".vm") + ".asm"
-    translator: VMToHackTranslator = VMToHackTranslator(filename=filepath.split("/")[-1].split(".")[0])
+    translator: VMTranslator = VMTranslator(filename=filepath.split("/")[-1].split(".")[0])
     with open(filepath, "r") as input_file:
         code: list[str] = input_file.read().splitlines()
         with open(output, "w") as output_file:
