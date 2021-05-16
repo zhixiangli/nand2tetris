@@ -6,4 +6,4 @@
 
 ### Sample command
 
-    `python3.9 hack_assembler.py add/Add.asm`
+`python3.9 hack_assembler.py add/Add.asm`
