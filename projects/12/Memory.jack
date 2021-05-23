@@ -10,25 +10,61 @@
  */ 
 class Memory {
 
+    static Array ram;
+    static Array heap;
+    static int freeList;
+
     /** Initializes the class. */
     function void init() {
+        let ram = 0;
+        let heap = 2048;
+        let freeList = 2048;
+        let heap[0] = 0;
+        let heap[1] = 14335;
+        return;
     }
 
     /** Returns the RAM value at the given address. */
     function int peek(int address) {
+        return ram[address];
     }
 
     /** Sets the RAM value at the given address to the given value. */
     function void poke(int address, int value) {
+        let ram[address] = value;
+        return;
     }
 
     /** Finds an available RAM block of the given size and returns
      *  a reference to its base address. */
     function int alloc(int size) {
+        var int curr, next, len;
+        let curr = freeList;
+        while (~(curr = 0)) {
+            let next = ram[curr]; // address of next free block
+            let len = ram[curr + 1]; // length of current free block
+            if (~(len < size + 1)) { // check len >= size + 1
+                let ram[curr] = size; // set size for used memory block
+                let freeList = curr + size + 1; // free list pointer should start from the end of used block
+                let ram[freeList] = next;
+                let ram[freeList + 1] = len - (size + 1);
+                return curr + 1;
+            }
+            let curr = next;
+        }
+        return freeList;
     }
 
     /** De-allocates the given object (cast as an array) by making
      *  it available for future allocations. */
     function void deAlloc(Array o) {
+        // insert the free block at the beginning of the free list
+        var int size, curr;
+        let curr = o - 1;
+        let size = ram[curr];
+        let ram[curr] = freeList; // next free block
+        let ram[curr + 1] = size - 1;
+        let freeList = curr;
+        return;
     }    
 }

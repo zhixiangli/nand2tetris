@@ -9,12 +9,39 @@
  */
 class Math {
 
+    static Array bits;
+
     /** Initializes the library. */
     function void init() {
+        var int i, mul, length;
+        let i = 1;
+        let length = 16;
+        let bits = Array.new(length);
+        let bits[0] = 1;
+        while (i < length) {
+            let bits[i] = bits[i - 1] + bits[i - 1];
+            let i = i + 1;
+        }
+        return;
+    }
+
+    function int Power2(int i) {
+        return bits[i];
+    }
+
+    function boolean bit(int x, int i) {
+        if ((bits[i] & x) = 0) {
+            return false;
+        }
+        return true;
     }
 
     /** Returns the absolute value of x. */
     function int abs(int x) {
+        if (x < 0) {
+            return -x;
+        }
+        return x;
     }
 
     /** Returns the product of x and y. 
@@ -23,6 +50,17 @@ class Math {
      *  the Jack expressions x*y and multiply(x,y) return the same value.
      */
     function int multiply(int x, int y) {
+        var int i, mul;
+        let i = 0;
+        let mul = 0;
+        while (i < 16) {
+            if (Math.bit(y, i)) {
+                let mul = mul + x;
+            }
+            let x = x + x;
+            let i = i + 1;
+        }
+        return mul;
     }
 
     /** Returns the integer part of x/y.
@@ -31,17 +69,57 @@ class Math {
      *  the Jack expressions x/y and divide(x,y) return the same value.
      */
     function int divide(int x, int y) {
+        var int x0, y0, result;
+        let x0 = Math.abs(x);
+        let y0 = Math.abs(y);
+        let result = Math.dividePositiveOnly(x0, y0);
+        if ((x > 0) = (y > 0)) {
+            return result;
+        }
+        return -result;
+    }
+
+    function int dividePositiveOnly(int x, int y) {
+        var int q;
+        if (x < y) {
+            return 0;
+        }
+        let q = Math.dividePositiveOnly(x, 2 * y);
+        if (q * 2 * y + y > x) {
+            return 2 * q;
+        }
+        return 2 * q + 1;
     }
 
     /** Returns the integer part of the square root of x. */
     function int sqrt(int x) {
+        var int result, i, tmp, tmp2;
+        let result = 0;
+        let i = 7;
+        while (~(i < 0)) {
+            let tmp = result + bits[i];
+            let tmp2 = tmp * tmp;
+            if ((tmp2 > 0) & ~(tmp2 > x)) {
+                let result = tmp;
+            }
+            let i = i - 1;
+        }
+        return result;
     }
 
     /** Returns the greater number. */
     function int max(int a, int b) {
+        if (a > b) {
+            return a;
+        }
+        return b;
     }
 
     /** Returns the smaller number. */
     function int min(int a, int b) {
+        if (a > b) {
+            return b;
+        }
+        return a;
     }
 }
