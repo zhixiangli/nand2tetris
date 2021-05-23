@@ -1,8 +1,8 @@
-# Build a Modern Computer from First Principles: Nand to Tetris (project-centered course)
+# The Elements of Computing Systems: Building a Modern Computer from First Principles
 
-Implementation of a complete computer that only uses Nand gates.
+Implementation of a complete computer from Nand gates.
 
-|                    |      Project      |
+|                    |      Project     |
 | :----------------: |:-----------------|
 | :white_check_mark: | Project 1: Boolean Logic |
 | :white_check_mark: | Project 2: Boolean Arithmetic |
