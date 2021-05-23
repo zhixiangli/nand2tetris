@@ -1,4 +1,10 @@
-# VM to Assembly Translator
+# VM Translator
+
+## Background
+
+It translates VM language's stack arithmetic and memory access commands into symbolic Hack assembly language.
+
+In the next project, Project 8, this basic translator will be extended into a full-scale VM translator.
 
 ## Generate .asm file
 
