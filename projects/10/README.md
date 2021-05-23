@@ -1,5 +1,8 @@
 # Syntax Analyzer
 
+## Background
+It parses Jack programs according to the Jack grammar, producing an XML file that renders the program's structure using marked-up text.
+
 ## Setup
 
 1. `virtualenv project10-venv`
